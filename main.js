@@ -3,7 +3,9 @@
 // Modules to control application life and create native browser window
 const { app, BrowserWindow } = require('electron')
 const path = require('path')
-const {execFile} = require("child_process");
+const {spawn} = require("child_process");
+const log = require('electron-log');
+// const {spawn} = require("electron-notarize/lib/spawn");
 
 const createWindow = () => {
     // Create the browser window.
@@ -20,7 +22,7 @@ const createWindow = () => {
 
     mainWindow.webContents.openDevTools()
 
-    let server = execFile(path.join(__dirname, 'server.js'));
+    let server = spawn(path.join('/Users/kevingriffin/.nvm/versions/node/v17.7.1/bin/node'), ['server.js']);
     server.on('error', function (err) {
         log.error('spawn error' + err);
     });
@@ -33,20 +35,11 @@ const createWindow = () => {
     server.stderr.on('data', (data) => {
         let buffer = Buffer.from(data);
         let err = buffer.toString()
-
-        if (err.match(/Address already in use/) ||
-            err.match(/keri.kering.AuthError/ ||
-                err.match(/keri.kering.ConfigurationError/))
-        ) {
-            // noinspection JSIgnoredPromiseFromCall
-            win.loadFile(path.join(__dirname, 'oops.html'));
-            server.kill();
-        }
         log.error('err:', err);
     });
 
     server.on('close', (code) => {
-        log.info(`ward process exited with code ${code}`);
+        log.info(`server process exited with code ${code}`);
     });
 }
 

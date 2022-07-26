@@ -6,23 +6,22 @@
     <meta http-equiv="Content-Security-Policy" content="script-src 'self' 'unsafe-inline';"/>
 </head>
 <body>
-<h1>Phil likes butts</h1>
+<h1>test</h1>
 <p>
 
     <button onclick="get()">
-        Press my button
+        Press the button
     </button>
     <label id="resp">
-        Welcome to GeeksforGeeks
     </label>
     <script>
         function get() {
             let xhttp = new XMLHttpRequest();
-            xhttp.onreadystatechange = function() {
+            xhttp.onreadystatechange = function () {
                 if (this.readyState === 4 && this.status === 200) {
                     document.getElementById("resp").innerHTML = xhttp.responseText;
                 } else {
-                    console.log("fart");
+                    console.log("err", this.readyState, this.status);
                 }
             };
             xhttp.open("GET", "http://localhost:3000/hi", true);
