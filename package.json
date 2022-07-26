@@ -19,12 +19,16 @@
       "icon": "assets/icon.png",
       "identity": "Kevin Griffin (WHU7A4EQ74)",
       "entitlements": "entitlements.plist",
+      "binaries": [
+        "./node"
+      ],
       "hardenedRuntime": true,
       "gatekeeperAssess": false
     }
   },
   "dependencies": {
     "electron-log": "^4.4.8",
-    "express": "^4.18.1"
+    "express": "^4.18.1",
+    "tree-kill": "^1.2.2"
   }
 }
